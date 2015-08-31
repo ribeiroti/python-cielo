@@ -23,6 +23,7 @@
         <produto>%(transaction_type)s</produto>
         <parcelas>%(installments)s</parcelas>
     </forma-pagamento>
+    <url-retorno>%(url_redirect)s</url-retorno>
     <autorizar>3</autorizar>
     <capturar>false</capturar>
 </requisicao-transacao>

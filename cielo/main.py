@@ -38,42 +38,55 @@ CIELO_MSG_ERRORS = {
     '010': u'A transação, com ou sem cartão, está divergente com a permissão do envio dessa informação. (010-Inconsistência no envio do cartão)',
     '011': u'A transação está configurada com uma modalidade de pagamento não habilitada para a loja. (011-Modalidade não habilitada)',
     '012': u'O número de parcelas solicitado ultrapassa o máximo permitido. (012-Número de parcelas inválido)',
-    '013': u'Flag de autorizacao automatica invalida',
-    '014': u'Autorizacao Direta inválida',
-    '015': u'A solicitação de Autorização Direta está sem cartão',
-    '016': u'O TID fornecido está duplicado',
-    '017': u'Cádigo de segurança ausente',
-    '018': u'Indicador de cádigo de segurança inconsistente',
-    '019': u'A URL de Retorno é obrigatória, exceto para recorrência e autorização direta.',
+    '013': u'Flag de autorização automática incompatível com a forma de pagamento solicitada. (013-Flag de autorização automática inválida)',
+    '014': u'A solicitação de Autorização Direta está inválida. (014-Autorização Direta inválida)',
+    '015': u'A solicitação de Autorização Direta está sem cartão. (015-Autorização Direta sem Cartão)',
+    '016': u'O TID fornecido está duplicado. (016-Identificador, TID, inválido)',
+    '017': u'O código de segurança do cartão não foi enviado. (017-Código de segurança ausente)',
+    '018': u'Uso incorreto do indicador de código de segurança (018-Indicador de código de segurança inconsistente)',
+    '019': u'A URL de Retorno é obrigatória, exceto para recorrência e autorização direta. (019-URL de Retorno não fornecida)',
     '020': u'Não é permitido realizar autorização para o status da transação. (020-Status não permite autorização)',
     '021': u'Não é permitido realizar autorização, pois o prazo está vencido. (021-Prazo de autorização vencido)',
     '022': u'EC não possui permissão para realizar a autorização.(022-EC não autorizado)',
-    '025': u'Encaminhamento a autorização não permitido',
+    '025': u'O resultado da Autenticação da transação não permite a solicitação de Autorização (025-Encaminhamento a autorização não permitido)',
     '030': u'A captura não pode ser realizada, pois a transação não está autorizada.(030-Transação não autorizada para captura)',
     '031': u'A captura não pode ser realizada, pois o prazo para captura está vencido.(031-Prazo de captura vencido)',
     '032': u'O valor solicitado para captura não é válido.(032-Valor de captura inválido)',
     '033': u'Não foi possível realizar a captura.(033-Falha ao capturar)',
-    '034': u'Valor da taxa de embarque obrigatório',
-    '035': u'A bandeira utilizada na transação não tem suporte à Taxa de Embarque',
-    '036': u'Produto inválido para utilização da Taxa de Embarque',
+    '034': u'O valor da taxa de embarque é obrigatório se a captura for parcial e a autorização tiver sido feita com taxa de embarque. (034-Valor da taxa de embarque obrigatório)',
+    '035': u'A bandeira utilizada na transação não tem suporte à Taxa de Embarque. (035-Bandeira inválida para utilização da Taxa de Embarque)',
+    '036': u'O produto escolhido não tem suporte à Taxa de Embarque. (036-Produto inválido para utilização da Taxa de Embarque)',
     '040': u'O cancelamento não pode ser realizado, pois o prazo está vencido.(040-Prazo de cancelamento vencido)',
-    '041': u'O atual status da transação não permite cancelament.(041-Status não permite cancelamento)',
+    '041': u'O atual status da transação não permite cancelamento.(041-Status não permite cancelamento)',
     '042': u'Não foi possível realizar o cancelamento.(042-Falha ao cancelar)',
-    '043': u'O valor que está tentando cancelar supera o valor total capturado da transacao.',
-    '044': u'Para cancelar ou capturar essa transação, envie um e-mail para o Suporte Web Cielo eCommerce (cieloecommerce@cielo.com.br)',
-    '051': u'Recorrência Inválida',
-    '052': u'Token Inválido',
-    '053': u'Recorrência não habilitada',
-    '054': u'Transacao com Token invalida',
-    '097': u'Sistema indisponivel',
-    '098': u'Timeout',
+    '043': u'O valor que está tentando cancelar supera o valor total capturado da transação. (043-Valor de cancelamento é maior que valor autorizado)',
+    '051': u'As configurações da transação não permitem que a transação recorrente seja efetuada com sucesso. (051-Recorrência Inválida)',
+    '052': u'O Token fornecido na requisição de autorização não é válido ou está bloqueado. (052-Token Inválido)',
+    '053': u'O cadastro do lojista não permite o envio de transações recorrentes. (053-Recorrência não habilitada)',
+    '054': u'As configurações da transação não permitem que a autorização direta com uso de Token seja efetuada com sucesso. (054-Transação com Token inválida)',
+    '055': u'Foi solicitado criação de Token, porém o número do cartão de crédito não foi fornecido. (055-Número do cartão não fornecido)',
+    '056': u'Foi solicitado criação de Token, porém a validade do cartão de crédito não foi fornecida. (056-Validade do cartão não fornecido)',
+    '057': u'Falha no sistema ocorrida no momento da geração do Token. (057-Erro inesperado gerando Token)',
+    '061': u'As configurações da transação recorrente estão inválidas. (061-Transação Recorrente Inválida)',
+    '097': u'Falha no sistema (097-Sistema indisponível)',
+    '098': u'A aplicação não respondeu dentro de 25 segundos. (098-Timeout)',
     '099': u'Falha no sistema.(099-Erro inesperado)',
 }
 
-# try:
-#     SSL_VERSION = ssl.PROTOCOL_SSLv23
-# except:
-#     SSL_VERSION = ssl.PROTOCOL_TLSv1
+CIELO_MSG_STATUS = {
+    0: u'Criada',
+    1: u'Em andamento',
+    2: u'Autenticada',
+    3: u'Não autenticada',
+    4: u'Autorizada ou pendente de captura',
+    5: u'Não autorizada',
+    6: u'Capturada',
+    8: u'Não capturada',
+    9: u'Cancelada',
+    10: u'Em autenticação'
+}
+
+
 SSL_VERSION = ssl.PROTOCOL_TLSv1
 
 
@@ -169,7 +182,7 @@ class BaseCieloObject(object):
         if status != 6:
             # 6 = capturado
             raise CaptureException()
-        return True
+        return status
 
     def consult(self, **kwargs):
         self.date = datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
@@ -227,7 +240,7 @@ class BaseCieloObject(object):
             self.dom.getElementsByTagName('status')[0].childNodes[0].data)
 
         if self.status in [9, 12]:
-            self.canceled = True
+            self.cancelled = True
             return True
 
         if 'Cancelamento parcial realizado com sucesso' in self.response.content:
@@ -412,6 +425,7 @@ class PaymentAttempt(BaseCieloObject):
             transaction=CASH,
             sandbox=False,
             use_ssl=None,
+            url_redirect='null'
         ):
 
         super(PaymentAttempt, self).__init__(sandbox=sandbox, use_ssl=use_ssl)
@@ -424,6 +438,9 @@ class PaymentAttempt(BaseCieloObject):
 
         if len(str(exp_year)) == 2:
             exp_year = '20%s' % exp_year  # FIXME: bug do milênio em 2100
+
+        if len(str(exp_month)) == 1:
+            exp_month = '0%s' % exp_month
 
         self.url = SANDBOX_URL if sandbox else PRODUCTION_URL
         self.card_type = card_type
@@ -444,6 +461,30 @@ class PaymentAttempt(BaseCieloObject):
 
         self.sandbox = sandbox
 
+        self.url_redirect = url_redirect
+
+
+class CaptureAttempt(BaseCieloObject):
+    template = 'templates/capture.xml'
+
+    def __init__(
+            self,
+            affiliation_id,
+            api_key,
+            transaction_id,
+            sandbox=False,
+            use_ssl=None,
+        ):
+        super(CaptureAttempt, self).__init__(sandbox=sandbox, use_ssl=use_ssl)
+
+        self.url = SANDBOX_URL if sandbox else PRODUCTION_URL
+        self.affiliation_id = affiliation_id
+        self.api_key = api_key
+        self._authorized = True
+        self.transaction_id = transaction_id
+
+        self.sandbox = sandbox
+
 
 class DebtAttempt(BaseCieloObject):
     template = 'templates/authorize_debt.xml'
@@ -460,7 +501,7 @@ class DebtAttempt(BaseCieloObject):
             exp_month,
             exp_year,
             card_holders_name,
-            url_redirect,
+            url_redirect="null",
             sandbox=False,
             use_ssl=None,
         ):
@@ -469,6 +510,9 @@ class DebtAttempt(BaseCieloObject):
 
         if len(str(exp_year)) == 2:
             exp_year = '20%s' % exp_year
+
+        if len(str(exp_month)) == 1:
+            exp_month = '0%s' % exp_month
 
         self.url_redirect = url_redirect
         self.url = SANDBOX_URL if sandbox else PRODUCTION_URL
