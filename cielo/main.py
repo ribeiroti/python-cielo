@@ -134,11 +134,13 @@ class BaseCieloObject(object):
         if use_ssl is None:
             use_ssl = not sandbox
 
-        if use_ssl and sandbox:
-            self.session.mount('http://', CieloSkipAdapter())
+        #if use_ssl and sandbox:
+        #    self.session.mount('http://', CieloSkipAdapter())
 
-        if use_ssl and not sandbox:
-            self.session.mount('https://', CieloHTTPSAdapter())
+        #if use_ssl and not sandbox:
+        #    self.session.mount('https://', CieloHTTPSAdapter())
+
+        self.session.mount('https://', CieloHTTPSAdapter())
 
     def create_token(self):
         self.payload = open(
