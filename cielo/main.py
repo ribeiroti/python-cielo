@@ -151,7 +151,7 @@ class BaseCieloObject(object):
             self.url,
             data={'mensagem': self.payload, })
 
-        self.dom = xml.dom.minidom.parseString(self.response.content)
+        self.dom = xml.dom.minidom.parseString(self.response.content.decode('iso-8859-1').encode('utf-8'))
 
         if self.dom.getElementsByTagName('erro'):
             raise TokenException('Erro ao gerar token!')
@@ -178,8 +178,13 @@ class BaseCieloObject(object):
             'mensagem': payload,
         })
 
-        dom = xml.dom.minidom.parseString(response.content)
-        status = int(dom.getElementsByTagName('status')[0].childNodes[0].data)
+        content = response.content.decode('iso-8859-1').encode('utf-8')
+        dom = xml.dom.minidom.parseString(content)
+
+        try:
+            status = int(dom.getElementsByTagName('status')[0].childNodes[0].data)
+        except IndexError:
+            status = 0
 
         if status != 6:
             # 6 = capturado
@@ -196,7 +201,7 @@ class BaseCieloObject(object):
             self.url,
             data={'mensagem': self.payload, })
         self.content = self.response.content
-        self.dom = xml.dom.minidom.parseString(self.content)
+        self.dom = xml.dom.minidom.parseString(self.content.decode('iso-8859-1').encode('utf-8'))
 
     def assert_transaction_is_paid(self):
         self.consult()
@@ -229,7 +234,7 @@ class BaseCieloObject(object):
             self.url,
             data={'mensagem': self.payload, })
         self.content = self.response.content
-        self.dom = xml.dom.minidom.parseString(self.content)
+        self.dom = xml.dom.minidom.parseString(self.content.decode('iso-8859-1').encode('utf-8'))
 
         if self.dom.getElementsByTagName('erro'):
             self.error = self.dom.getElementsByTagName(
@@ -262,11 +267,10 @@ class BaseCieloObject(object):
             self.url,
             data={'mensagem': self.payload, })
 
-        self.dom = xml.dom.minidom.parseString(self.response.content)
+        self.dom = xml.dom.minidom.parseString(self.response.content.decode('iso-8859-1').encode('utf-8'))
 
         if self.dom.getElementsByTagName('erro'):
-            self.error = self.dom.getElementsByTagName(
-                'erro')[0].getElementsByTagName('codigo')[0].childNodes[0].data
+            self.error = self.dom.getElementsByTagName('erro')[0].getElementsByTagName('codigo')[0].childNodes[0].data
             self.error_id = None
             self.error_message = CIELO_MSG_ERRORS.get(self.error, u'Erro não catalogado')
             raise GetAuthorizedException(self.error_id, self.error_message)
@@ -545,7 +549,7 @@ class DebtAttempt(BaseCieloObject):
             self.url,
             data={'mensagem': self.payload, })
 
-        self.dom = xml.dom.minidom.parseString(self.response.content)
+        self.dom = xml.dom.minidom.parseString(self.response.content.decode('iso-8859-1').encode('utf-8'))
 
         if self.dom.getElementsByTagName('erro'):
             self.error = self.dom.getElementsByTagName(
