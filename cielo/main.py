@@ -1,7 +1,7 @@
 # coding: utf-8
 from datetime import datetime
 import os
-import backports.ssl as ssl
+import ssl
 import requests
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.poolmanager import PoolManager
@@ -87,7 +87,7 @@ CIELO_MSG_STATUS = {
 }
 
 
-SSL_VERSION = ssl.PROTOCOL_TLSv1_2
+SSL_VERSION = ssl.PROTOCOL_TLSv1
 
 
 class CieloHTTPSAdapter(HTTPAdapter):
