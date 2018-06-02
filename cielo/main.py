@@ -87,7 +87,7 @@ CIELO_MSG_STATUS = {
 }
 
 
-SSL_VERSION = ssl.PROTOCOL_TLSv1
+SSL_VERSION = ssl.PROTOCOL_TLSv1_2
 
 
 class CieloHTTPSAdapter(HTTPAdapter):
